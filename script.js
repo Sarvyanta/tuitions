@@ -1,4 +1,3 @@
-
 const WHATSAPP_NUMBER = "917386406514";
 
 
@@ -22,6 +21,112 @@ function trackEvent(eventName, params = {}) {
 function getWhatsAppUrl(message) {
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+}
+
+
+/* ================= CAMPAIGN / SOURCE TRACKING ================= */
+
+/*
+  Reads UTM parameters from the URL.
+
+  Example WhatsApp Status URL:
+
+  https://sarvyanta.com/tuitions/
+  ?utm_source=whatsapp
+  &utm_medium=status
+  &utm_campaign=tuition
+*/
+
+const urlParams =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const trafficSource =
+  urlParams.get("utm_source") || "";
+
+const trafficMedium =
+  urlParams.get("utm_medium") || "";
+
+const trafficCampaign =
+  urlParams.get("utm_campaign") || "";
+
+
+/*
+  Store campaign information for this browser session.
+
+  This helps preserve the original source even if the
+  visitor moves around the website before making an enquiry.
+*/
+
+if (
+  trafficSource ||
+  trafficMedium ||
+  trafficCampaign
+) {
+
+  sessionStorage.setItem(
+    "sarvyanta_traffic_source",
+    trafficSource
+  );
+
+  sessionStorage.setItem(
+    "sarvyanta_traffic_medium",
+    trafficMedium
+  );
+
+  sessionStorage.setItem(
+    "sarvyanta_traffic_campaign",
+    trafficCampaign
+  );
+
+}
+
+
+/*
+  Retrieve stored campaign information.
+*/
+
+const storedTrafficSource =
+  sessionStorage.getItem(
+    "sarvyanta_traffic_source"
+  ) || "";
+
+const storedTrafficMedium =
+  sessionStorage.getItem(
+    "sarvyanta_traffic_medium"
+  ) || "";
+
+const storedTrafficCampaign =
+  sessionStorage.getItem(
+    "sarvyanta_traffic_campaign"
+  ) || "";
+
+
+/*
+  Common attribution parameters.
+
+  These do NOT contain personal information.
+*/
+
+function getTrafficParams() {
+
+  return {
+
+    traffic_source:
+      storedTrafficSource ||
+      "direct",
+
+    traffic_medium:
+      storedTrafficMedium ||
+      "none",
+
+    traffic_campaign:
+      storedTrafficCampaign ||
+      "none"
+
+  };
 
 }
 
@@ -66,7 +171,10 @@ if (menuToggle && mainNav) {
           state:
             isOpen
               ? "open"
-              : "closed"
+              : "closed",
+
+          ...getTrafficParams()
+
         }
       );
 
@@ -267,7 +375,9 @@ function openInquiryModal(
       form_type:
         isFreeDemo
           ? "free_demo"
-          : "enquiry"
+          : "enquiry",
+
+      ...getTrafficParams()
 
     }
   );
@@ -388,7 +498,7 @@ modalClose?.addEventListener(
 
 
 
-/* ESCAPE KEY */
+/* ================= ESCAPE KEY ================= */
 
 document.addEventListener(
   "keydown",
@@ -430,8 +540,12 @@ document
         trackEvent(
           "class_selected",
           {
+
             class_name:
-              selectedClass
+              selectedClass,
+
+            ...getTrafficParams()
+
           }
         );
 
@@ -452,6 +566,7 @@ document
 /* ================= WHATSAPP ================= */
 
 const whatsappMessages = {
+
   top_bar:
     "Hello Sarvyanta Tuition Connect,\nI would like to know more about online and home tuition for Classes 1–10.",
 
@@ -466,24 +581,53 @@ const whatsappMessages = {
 
   floating:
     "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry. Please help me with the suitable tuition option."
+
 };
 
-document.querySelectorAll("[data-whatsapp-click]").forEach((link) => {
-  const source = link.dataset.whatsappClick || "unknown";
 
-  const message =
-    whatsappMessages[source] ||
-    "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry.";
+document
+  .querySelectorAll(
+    "[data-whatsapp-click]"
+  )
+  .forEach((link) => {
 
-  /* Set the pre-filled WhatsApp message */
-  link.href = getWhatsAppUrl(message);
+    const source =
+      link.dataset.whatsappClick ||
+      "unknown";
 
-  link.addEventListener("click", () => {
-    trackEvent("whatsapp_click", {
-      source
-    });
+
+    const message =
+      whatsappMessages[source] ||
+      "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry.";
+
+
+    /* Set pre-filled WhatsApp message */
+
+    link.href =
+      getWhatsAppUrl(message);
+
+
+    link.addEventListener(
+      "click",
+      () => {
+
+        trackEvent(
+          "whatsapp_click",
+          {
+
+            source,
+
+            ...getTrafficParams()
+
+          }
+        );
+
+      }
+    );
+
   });
-});
+
+
 
 /* ================= FORM SUBMISSION ================= */
 
@@ -600,7 +744,9 @@ inquiryForm?.addEventListener(
         request_type:
           isFreeDemo
             ? "free_demo"
-            : "enquiry"
+            : "enquiry",
+
+        ...getTrafficParams()
 
       }
     );
@@ -694,7 +840,11 @@ document
           trackEvent(
             "faq_open",
             {
-              question
+
+              question,
+
+              ...getTrafficParams()
+
             }
           );
 
@@ -761,8 +911,12 @@ function trackScrollDepth() {
         trackEvent(
           "scroll_depth",
           {
+
             percent:
-              milestone
+              milestone,
+
+            ...getTrafficParams()
+
           }
         );
 
@@ -787,11 +941,9 @@ window.addEventListener(
 
 /* ================= URL PREFILL ================= */
 
-const urlParams =
-  new URLSearchParams(
-    window.location.search
-  );
-
+/*
+  class URL parameter is still supported.
+*/
 
 const classFromUrl =
   urlParams.get("class");
@@ -842,7 +994,11 @@ if (classFromUrl) {
 trackEvent(
   "tuition_page_view",
   {
+
     page_type:
-      "tuition_landing"
+      "tuition_landing",
+
+    ...getTrafficParams()
+
   }
 );
