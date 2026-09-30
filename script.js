@@ -4,90 +4,140 @@ const WHATSAPP_NUMBER = "917386405614";
 /* ================= ANALYTICS ================= */
 
 function trackEvent(eventName, params = {}) {
+
   if (typeof window.gtag === "function") {
-    window.gtag("event", eventName, params);
+
+    window.gtag(
+      "event",
+      eventName,
+      params
+    );
+
   }
+
 }
 
 
 function getWhatsAppUrl(message) {
+
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
 }
+
 
 
 /* ================= MOBILE NAV ================= */
 
-const menuToggle = document.getElementById("menuToggle");
-const mainNav = document.getElementById("mainNav");
+const menuToggle =
+  document.getElementById("menuToggle");
+
+const mainNav =
+  document.getElementById("mainNav");
+
 
 if (menuToggle && mainNav) {
 
-  menuToggle.addEventListener("click", () => {
+  menuToggle.addEventListener(
+    "click",
+    () => {
 
-    const isOpen = mainNav.classList.toggle("show");
+      const isOpen =
+        mainNav.classList.toggle("show");
 
-    menuToggle.setAttribute(
-      "aria-expanded",
-      String(isOpen)
-    );
-
-    menuToggle.setAttribute(
-      "aria-label",
-      isOpen ? "Close menu" : "Open menu"
-    );
-
-    trackEvent("mobile_menu_toggle", {
-      state: isOpen ? "open" : "closed"
-    });
-
-  });
-
-
-  mainNav.querySelectorAll("a").forEach((link) => {
-
-    link.addEventListener("click", () => {
-
-      mainNav.classList.remove("show");
 
       menuToggle.setAttribute(
         "aria-expanded",
-        "false"
+        String(isOpen)
       );
+
 
       menuToggle.setAttribute(
         "aria-label",
-        "Open menu"
+        isOpen
+          ? "Close menu"
+          : "Open menu"
+      );
+
+
+      trackEvent(
+        "mobile_menu_toggle",
+        {
+          state:
+            isOpen
+              ? "open"
+              : "closed"
+        }
+      );
+
+    }
+  );
+
+
+  mainNav
+    .querySelectorAll("a")
+    .forEach((link) => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          mainNav.classList.remove("show");
+
+          menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+          menuToggle.setAttribute(
+            "aria-label",
+            "Open menu"
+          );
+
+        }
       );
 
     });
 
-  });
-
 }
+
 
 
 /* ================= ENQUIRY / DEMO MODAL ================= */
 
 const inquiryModal =
-  document.getElementById("inquiryModal");
+  document.getElementById(
+    "inquiryModal"
+  );
 
 const modalClose =
-  document.getElementById("modalClose");
+  document.getElementById(
+    "modalClose"
+  );
 
 const inquiryForm =
-  document.getElementById("inquiryForm");
+  document.getElementById(
+    "inquiryForm"
+  );
 
 const modalTitle =
-  document.getElementById("modalTitle");
+  document.getElementById(
+    "modalTitle"
+  );
 
 const modalKicker =
-  document.getElementById("modalKicker");
+  document.getElementById(
+    "modalKicker"
+  );
 
 const modalDescription =
-  document.getElementById("modalDescription");
+  document.getElementById(
+    "modalDescription"
+  );
 
 
-let currentEnquirySource = "unknown";
+let currentEnquirySource =
+  "unknown";
+
 
 
 function openInquiryModal(
@@ -96,14 +146,22 @@ function openInquiryModal(
   className = ""
 ) {
 
-  if (!inquiryModal) return;
+  if (!inquiryModal) {
+    return;
+  }
 
-  currentEnquirySource = source;
 
-  inquiryModal.dataset.source = source;
+  currentEnquirySource =
+    source;
+
+
+  inquiryModal.dataset.source =
+    source;
+
 
   const isFreeDemo =
     source === "free_demo";
+
 
 
   if (modalKicker) {
@@ -116,6 +174,7 @@ function openInquiryModal(
   }
 
 
+
   if (modalTitle) {
 
     modalTitle.textContent =
@@ -124,6 +183,7 @@ function openInquiryModal(
         : "Tell us what you need.";
 
   }
+
 
 
   if (modalDescription) {
@@ -136,17 +196,25 @@ function openInquiryModal(
   }
 
 
-  inquiryModal.classList.add("show");
+
+  inquiryModal.classList.add(
+    "show"
+  );
+
 
   inquiryModal.setAttribute(
     "aria-hidden",
     "false"
   );
 
+
   document.body.classList.add(
     "modal-open"
   );
 
+
+
+  /* PRESELECT LEARNING */
 
   if (learning) {
 
@@ -155,106 +223,153 @@ function openInquiryModal(
         `input[name="learning"][value="${CSS.escape(learning)}"]`
       );
 
+
     if (option) {
+
       option.checked = true;
+
     }
 
   }
 
+
+
+  /* PRESELECT CLASS */
 
   if (className) {
 
     const classSelect =
-      document.getElementById("className");
+      document.getElementById(
+        "className"
+      );
+
 
     if (classSelect) {
-      classSelect.value = className;
+
+      classSelect.value =
+        className;
+
     }
 
   }
 
 
-  /*
-    Existing GA4 event name retained.
-  */
 
-  trackEvent("inquiry_open", {
+  /* GA4 */
 
-    source,
+  trackEvent(
+    "inquiry_open",
+    {
 
-    form_type:
-      isFreeDemo
-        ? "free_demo"
-        : "enquiry"
+      source,
 
-  });
+      form_type:
+        isFreeDemo
+          ? "free_demo"
+          : "enquiry"
 
+    }
+  );
+
+
+
+  /* FOCUS */
 
   const nameField =
-    document.getElementById("name");
+    document.getElementById(
+      "name"
+    );
 
-  setTimeout(() => {
-    nameField?.focus();
-  }, 80);
+
+  setTimeout(
+    () => {
+
+      nameField?.focus();
+
+    },
+    80
+  );
 
 }
 
 
+
 function closeInquiryModal() {
 
-  if (!inquiryModal) return;
+  if (!inquiryModal) {
+    return;
+  }
 
-  inquiryModal.classList.remove("show");
+
+  inquiryModal.classList.remove(
+    "show"
+  );
+
 
   inquiryModal.setAttribute(
     "aria-hidden",
     "true"
   );
 
+
   document.body.classList.remove(
     "modal-open"
   );
 
-  currentEnquirySource = "unknown";
+
+  currentEnquirySource =
+    "unknown";
 
 }
 
 
-/* OPEN BUTTONS */
+
+/* ================= OPEN BUTTONS ================= */
 
 document
-  .querySelectorAll("[data-open-inquiry]")
+  .querySelectorAll(
+    "[data-open-inquiry]"
+  )
   .forEach((button) => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-      const source =
-        button.dataset.inquirySource ||
-        "unknown";
+        const source =
+          button.dataset.inquirySource ||
+          "unknown";
 
-      const learning =
-        button.dataset.learning ||
-        "";
 
-      const className =
-        button.dataset.class ||
-        "";
+        const learning =
+          button.dataset.learning ||
+          "";
 
-      openInquiryModal(
-        source,
-        learning,
-        className
-      );
 
-    });
+        const className =
+          button.dataset.class ||
+          "";
+
+
+        openInquiryModal(
+          source,
+          learning,
+          className
+        );
+
+      }
+    );
 
   });
 
 
-/* CLOSE BUTTONS */
+
+/* ================= CLOSE BUTTONS ================= */
 
 document
-  .querySelectorAll("[data-close-modal]")
+  .querySelectorAll(
+    "[data-close-modal]"
+  )
   .forEach((element) => {
 
     element.addEventListener(
@@ -271,70 +386,96 @@ modalClose?.addEventListener(
 );
 
 
+
+/* ESCAPE KEY */
+
 document.addEventListener(
   "keydown",
   (event) => {
 
     if (
       event.key === "Escape" &&
-      inquiryModal?.classList.contains("show")
+      inquiryModal?.classList.contains(
+        "show"
+      )
     ) {
+
       closeInquiryModal();
+
     }
 
   }
 );
 
 
+
 /* ================= CLASS SELECTION ================= */
 
 document
-  .querySelectorAll("[data-class]")
+  .querySelectorAll(
+    "[data-class]"
+  )
   .forEach((button) => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-      const selectedClass =
-        button.dataset.class || "";
+        const selectedClass =
+          button.dataset.class ||
+          "";
 
-      trackEvent(
-        "class_selected",
-        {
-          class_name: selectedClass
-        }
-      );
 
-      openInquiryModal(
-        "class_selector",
-        "",
-        selectedClass
-      );
+        trackEvent(
+          "class_selected",
+          {
+            class_name:
+              selectedClass
+          }
+        );
 
-    });
+
+        openInquiryModal(
+          "class_selector",
+          "",
+          selectedClass
+        );
+
+      }
+    );
 
   });
+
 
 
 /* ================= WHATSAPP ================= */
 
 document
-  .querySelectorAll("[data-whatsapp-click]")
+  .querySelectorAll(
+    "[data-whatsapp-click]"
+  )
   .forEach((link) => {
 
-    link.addEventListener("click", () => {
+    link.addEventListener(
+      "click",
+      () => {
 
-      trackEvent(
-        "whatsapp_click",
-        {
-          source:
-            link.dataset.whatsappClick ||
-            "unknown"
-        }
-      );
+        trackEvent(
+          "whatsapp_click",
+          {
 
-    });
+            source:
+              link.dataset.whatsappClick ||
+              "unknown"
+
+          }
+        );
+
+      }
+    );
 
   });
+
 
 
 /* ================= FORM SUBMISSION ================= */
@@ -347,44 +488,55 @@ inquiryForm?.addEventListener(
 
 
     const formData =
-      new FormData(inquiryForm);
+      new FormData(
+        inquiryForm
+      );
 
 
     const name =
       String(
-        formData.get("name") || ""
+        formData.get("name") ||
+        ""
       ).trim();
 
 
     const className =
       String(
-        formData.get("className") || ""
+        formData.get("className") ||
+        ""
       ).trim();
 
 
     const subject =
       String(
-        formData.get("subject") || ""
+        formData.get("subject") ||
+        ""
       ).trim();
 
 
     const learning =
       String(
-        formData.get("learning") || ""
+        formData.get("learning") ||
+        ""
       ).trim();
 
 
     const location =
       String(
-        formData.get("location") || ""
+        formData.get("location") ||
+        ""
       ).trim();
 
 
     const message =
       String(
-        formData.get("message") || ""
+        formData.get("message") ||
+        ""
       ).trim();
 
+
+
+    /* VALIDATION */
 
     if (!name) {
 
@@ -392,22 +544,30 @@ inquiryForm?.addEventListener(
         "Please enter a parent, guardian or student name."
       );
 
+
       document
         .getElementById("name")
         ?.focus();
+
 
       return;
 
     }
 
 
+
     const isFreeDemo =
-      currentEnquirySource === "free_demo";
+      currentEnquirySource ===
+      "free_demo";
+
 
 
     /*
-      No names, phone numbers, locations
-      or free-text are sent to GA4.
+      IMPORTANT PRIVACY RULE
+
+      No names, phone numbers,
+      locations or free-text
+      are sent to GA4.
     */
 
     trackEvent(
@@ -438,6 +598,9 @@ inquiryForm?.addEventListener(
       }
     );
 
+
+
+    /* WHATSAPP MESSAGE */
 
     const lines = [
 
@@ -474,6 +637,7 @@ inquiryForm?.addEventListener(
     ].filter(Boolean);
 
 
+
     window.open(
       getWhatsAppUrl(
         lines.join("\n")
@@ -483,6 +647,9 @@ inquiryForm?.addEventListener(
     );
 
 
+
+    /* RESET */
+
     inquiryForm.reset();
 
     closeInquiryModal();
@@ -491,10 +658,13 @@ inquiryForm?.addEventListener(
 );
 
 
+
 /* ================= FAQ TRACKING ================= */
 
 document
-  .querySelectorAll(".faq-list details")
+  .querySelectorAll(
+    ".faq-list details"
+  )
   .forEach((item) => {
 
     item.addEventListener(
@@ -505,10 +675,14 @@ document
 
           const question =
             item
-              .querySelector("summary")
+              .querySelector(
+                "summary"
+              )
               ?.childNodes[0]
               ?.textContent
-              ?.trim() || "";
+              ?.trim() ||
+            "";
+
 
           trackEvent(
             "faq_open",
@@ -525,6 +699,7 @@ document
   });
 
 
+
 /* ================= SCROLL DEPTH ================= */
 
 const scrollMilestones = [
@@ -534,22 +709,30 @@ const scrollMilestones = [
   90
 ];
 
+
 const reachedMilestones =
   new Set();
+
 
 
 function trackScrollDepth() {
 
   const scrollable =
-    document.documentElement.scrollHeight -
+    document.documentElement
+      .scrollHeight -
     window.innerHeight;
 
-  if (scrollable <= 0) return;
+
+  if (scrollable <= 0) {
+    return;
+  }
 
 
   const percentage =
     Math.round(
-      (window.scrollY / scrollable) * 100
+      (window.scrollY /
+        scrollable) *
+      100
     );
 
 
@@ -567,10 +750,12 @@ function trackScrollDepth() {
           milestone
         );
 
+
         trackEvent(
           "scroll_depth",
           {
-            percent: milestone
+            percent:
+              milestone
           }
         );
 
@@ -582,11 +767,15 @@ function trackScrollDepth() {
 }
 
 
+
 window.addEventListener(
   "scroll",
   trackScrollDepth,
-  { passive: true }
+  {
+    passive: true
+  }
 );
+
 
 
 /* ================= URL PREFILL ================= */
@@ -595,6 +784,7 @@ const urlParams =
   new URLSearchParams(
     window.location.search
   );
+
 
 const classFromUrl =
   urlParams.get("class");
@@ -606,6 +796,7 @@ if (classFromUrl) {
     document.getElementById(
       "className"
     );
+
 
   if (classSelect) {
 
@@ -636,6 +827,7 @@ if (classFromUrl) {
   }
 
 }
+
 
 
 /* ================= PAGE VIEW ================= */
