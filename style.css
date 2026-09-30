@@ -1270,6 +1270,10 @@ h2 span {
   gap: 8px;
 }
 
+.choice {
+  position: relative;
+}
+
 .choice input {
   position: absolute;
   opacity: 0;
@@ -1362,6 +1366,7 @@ h2 span {
   .note-two {
     left: -5px;
   }
+
 }
 
 
@@ -1449,6 +1454,7 @@ h2 span {
     grid-template-columns: 1fr;
     gap: 30px;
   }
+
 }
 
 
@@ -1550,4 +1556,5 @@ h2 span {
     justify-content: center;
     padding: 15px 0;
   }
-    }
+
+}
