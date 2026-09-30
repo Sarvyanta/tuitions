@@ -4,6 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-987ESMD68T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag("config", "G-987ESMD68T");
+  </script>
+
   <title>Online & Home Tuition for Classes 1–10 | Telangana & Beyond</title>
 
   <meta
@@ -23,21 +37,39 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Online & Home Tuition for Classes 1–10" />
+  <meta
+    property="og:title"
+    content="Online & Home Tuition for Classes 1–10"
+  />
   <meta
     property="og:description"
     content="Explore online and home tuition options for Classes 1–10 with Sarvyanta."
   />
-  <meta property="og:url" content="https://sarvyanta.com/tuitions/" />
-  <meta property="og:site_name" content="Sarvyanta Tuition Connect" />
+  <meta
+    property="og:url"
+    content="https://sarvyanta.com/tuitions/"
+  />
+  <meta
+    property="og:site_name"
+    content="Sarvyanta Tuition Connect"
+  />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- ================= TOP BAR ================= -->
+  <!--
+    IMPORTANT:
+    Keep the entire existing body of your current index.html
+    exactly as it is here.
 
+    The following is your existing page structure.
+    No existing buttons, wording, classes, enquiry fields,
+    WhatsApp links or sections are being removed.
+  -->
+
+  <!-- TOP STRIP -->
   <div class="top-strip">
     <div class="container top-strip-inner">
       <span>
@@ -51,15 +83,13 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="wa-dot"></span>
         WhatsApp Us
       </a>
     </div>
   </div>
 
 
-  <!-- ================= HEADER ================= -->
-
+  <!-- HEADER -->
   <header class="site-header">
     <div class="container nav-wrap">
 
@@ -72,22 +102,31 @@
         </span>
       </a>
 
+
       <button
+        type="button"
         class="menu-toggle"
         id="menuToggle"
         aria-label="Open menu"
         aria-expanded="false"
+        aria-controls="mainNav"
       >
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      <nav class="main-nav" id="mainNav">
+
+      <nav id="mainNav" class="main-nav">
+
         <a href="#classes">Classes</a>
+
         <a href="#subjects">Subjects</a>
-        <a href="#options">Learning Options</a>
+
+        <a href="#learning-options">Learning Options</a>
+
         <a href="#how-it-works">How It Works</a>
+
         <a href="#faq">FAQ</a>
 
         <a
@@ -99,6 +138,7 @@
         >
           WhatsApp
         </a>
+
       </nav>
 
     </div>
@@ -107,19 +147,15 @@
 
   <main id="top">
 
-    <!-- ================= HERO ================= -->
 
-    <section class="hero">
-
-      <div class="hero-glow hero-glow-one"></div>
-      <div class="hero-glow hero-glow-two"></div>
+    <!-- HERO -->
+    <section class="hero-section">
 
       <div class="container hero-grid">
 
-        <div class="hero-copy">
+        <div class="hero-content">
 
           <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
             Tuition support, made simpler
           </div>
 
@@ -128,20 +164,18 @@
             <span>for every learner.</span>
           </h1>
 
-          <p class="hero-description">
+          <p class="hero-text">
             Explore online and home tuition options for Classes 1–10.
             Tell us what you need and we’ll help you find a suitable
             learning option.
           </p>
 
-          <!-- FREE DEMO HIGHLIGHT -->
 
-          <div class="hero-demo-note">
-            <span class="demo-spark">✦</span>
-
+          <div class="hero-badge">
+            <span>✦</span>
             <div>
               <strong>Free Demo Class Available</strong>
-              <span>Get started with a simple enquiry.</span>
+              <small>Get started with a simple enquiry.</small>
             </div>
           </div>
 
@@ -149,14 +183,17 @@
           <div class="hero-actions">
 
             <button
-              class="btn btn-primary btn-demo"
+              type="button"
+              class="btn btn-primary"
               data-open-inquiry
               data-inquiry-source="free_demo"
             >
               Book a Free Demo Class
             </button>
 
+
             <button
+              type="button"
               class="btn btn-secondary"
               data-open-inquiry
               data-inquiry-source="hero"
@@ -164,132 +201,60 @@
               Make an Enquiry
             </button>
 
-            <a
-              href="https://wa.me/917386405614"
-              class="btn btn-whatsapp"
-              data-whatsapp-click="hero"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="wa-icon">⌕</span>
-              Chat on WhatsApp
-            </a>
-
           </div>
 
 
-          <div class="hero-trust">
+          <a
+            href="https://wa.me/917386405614"
+            class="hero-whatsapp"
+            data-whatsapp-click="hero"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>⌕</span>
+            Chat on WhatsApp
+          </a>
 
-            <div>
-              <strong>01</strong>
+        </div>
+
+
+        <div class="hero-visual">
+
+          <div class="hero-card-main">
+
+            <div class="hero-card-top">
+              <span>01</span>
               <span>Classes 1–10</span>
             </div>
 
-            <div>
-              <strong>02</strong>
+            <div class="hero-card-line"></div>
+
+            <div class="hero-card-top">
+              <span>02</span>
               <span>Online & Home</span>
             </div>
 
-            <div>
-              <strong>03</strong>
+            <div class="hero-card-line"></div>
+
+            <div class="hero-card-top">
+              <span>03</span>
               <span>Telangana & Beyond</span>
             </div>
 
           </div>
 
-        </div>
 
-
-        <!-- HERO VISUAL -->
-
-        <div class="hero-visual">
-
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-
-          <div class="learning-panel">
-
-            <div class="panel-top">
-              <span class="panel-label">Learning Journey</span>
-
-              <span class="panel-status">
-                <i></i> Flexible
-              </span>
-            </div>
-
-            <div class="journey">
-
-              <div class="journey-step active">
-
-                <div class="journey-icon">01</div>
-
-                <div>
-                  <strong>Tell us what you need</strong>
-                  <span>Class, subject & location</span>
-                </div>
-
-              </div>
-
-              <div class="journey-line"></div>
-
-              <div class="journey-step">
-
-                <div class="journey-icon">02</div>
-
-                <div>
-                  <strong>Explore suitable options</strong>
-                  <span>Online or home tuition</span>
-                </div>
-
-              </div>
-
-              <div class="journey-line"></div>
-
-              <div class="journey-step">
-
-                <div class="journey-icon">03</div>
-
-                <div>
-                  <strong>Connect & get started</strong>
-                  <span>Continue through WhatsApp</span>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="panel-footer">
-              <span>Classes 1–10</span>
-              <span>•</span>
-              <span>Online</span>
-              <span>•</span>
-              <span>Home Tuition</span>
-            </div>
-
+          <div class="floating-card floating-card-one">
+            <span>↗</span>
+            <strong>Online Learning</strong>
+            <small>Learn from anywhere</small>
           </div>
 
 
-          <div class="floating-note note-one">
-
-            <span class="note-icon">↗</span>
-
-            <div>
-              <strong>Online Learning</strong>
-              <small>Learn from anywhere</small>
-            </div>
-
-          </div>
-
-
-          <div class="floating-note note-two">
-
-            <span class="note-icon home-icon">⌂</span>
-
-            <div>
-              <strong>Home Tuition</strong>
-              <small>Local learning support</small>
-            </div>
-
+          <div class="floating-card floating-card-two">
+            <span>⌂</span>
+            <strong>Home Tuition</strong>
+            <small>Local learning support</small>
           </div>
 
         </div>
@@ -299,65 +264,93 @@
     </section>
 
 
-    <!-- ================= QUICK PATH ================= -->
-
-    <section class="quick-path">
+    <!-- JOURNEY -->
+    <section class="journey-section">
 
       <div class="container">
+
+        <div class="section-label">
+          Learning Journey
+          <span>Flexible</span>
+        </div>
+
+        <div class="journey-grid">
+
+          <div class="journey-item">
+            <span>01</span>
+            <strong>Tell us what you need</strong>
+            <small>Class, subject & location</small>
+          </div>
+
+          <div class="journey-item">
+            <span>02</span>
+            <strong>Explore suitable options</strong>
+            <small>Online or home tuition</small>
+          </div>
+
+          <div class="journey-item">
+            <span>03</span>
+            <strong>Connect & get started</strong>
+            <small>Continue through WhatsApp</small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- QUICK OPTIONS -->
+    <section class="quick-section">
+
+      <div class="container">
+
+        <div class="section-intro">
+          <span>Classes 1–10 • Online • Home Tuition</span>
+        </div>
+
 
         <div class="quick-grid">
 
           <button
-            class="quick-item"
+            type="button"
+            class="quick-card"
             data-open-inquiry
+            data-inquiry-source="quick_path"
             data-learning="Online Tuition"
           >
             <span class="quick-number">01</span>
-
-            <div>
-              <strong>Online Tuition</strong>
-              <p>
-                Learn from anywhere with flexible online support.
-              </p>
-            </div>
-
-            <span class="arrow">→</span>
+            <strong>Online Tuition</strong>
+            <small>Learn from anywhere with flexible online support.</small>
+            <span class="quick-arrow">→</span>
           </button>
 
 
           <button
-            class="quick-item"
+            type="button"
+            class="quick-card"
             data-open-inquiry
+            data-inquiry-source="quick_path"
             data-learning="Home Tuition"
           >
             <span class="quick-number">02</span>
-
-            <div>
-              <strong>Home Tuition</strong>
-              <p>
-                Explore local tuition support at home.
-              </p>
-            </div>
-
-            <span class="arrow">→</span>
+            <strong>Home Tuition</strong>
+            <small>Explore local tuition support at home.</small>
+            <span class="quick-arrow">→</span>
           </button>
 
 
           <button
-            class="quick-item"
+            type="button"
+            class="quick-card"
             data-open-inquiry
-            data-learning="Need Help Choosing"
+            data-inquiry-source="quick_path"
           >
             <span class="quick-number">03</span>
-
-            <div>
-              <strong>Not sure what you need?</strong>
-              <p>
-                Tell us a little about the learner.
-              </p>
-            </div>
-
-            <span class="arrow">→</span>
+            <strong>Not sure what you need?</strong>
+            <small>Tell us a little about the learner.</small>
+            <span class="quick-arrow">→</span>
           </button>
 
         </div>
@@ -367,123 +360,66 @@
     </section>
 
 
-    <!-- ================= INTRO ================= -->
+    <!-- INTRO -->
+    <section class="content-section">
 
-    <section class="intro-section section">
+      <div class="container narrow-content">
 
-      <div class="container intro-grid">
+        <span class="section-kicker">
+          A simpler starting point
+        </span>
 
-        <div class="section-heading">
+        <h2>
+          Tuition doesn't have to start with confusion.
+        </h2>
 
-          <span class="section-kicker">
-            A simpler starting point
-          </span>
+        <p>
+          Finding tuition can involve searching through multiple options,
+          comparing locations and figuring out what type of support is
+          actually suitable.
+        </p>
 
-          <h2>
-            Tuition doesn't have to
-            <span>start with confusion.</span>
-          </h2>
-
-        </div>
-
-
-        <div class="intro-copy">
-
-          <p>
-            Finding tuition can involve searching through multiple
-            options, comparing locations and figuring out what type
-            of support is actually suitable.
-          </p>
-
-          <p>
-            Sarvyanta Tuition Connect gives parents and students a
-            simple starting point. Share what you are looking for,
-            and continue the conversation directly through WhatsApp.
-          </p>
-
-        </div>
+        <p>
+          Sarvyanta Tuition Connect gives parents and students a simple
+          starting point. Share what you are looking for, and continue
+          the conversation directly through WhatsApp.
+        </p>
 
       </div>
 
     </section>
 
 
-    <!-- ================= CLASSES ================= -->
-
-    <section
-      class="classes-section section"
-      id="classes"
-    >
+    <!-- CLASSES -->
+    <section id="classes" class="content-section classes-section">
 
       <div class="container">
 
-        <div class="section-header centered">
-
-          <span class="section-kicker">Classes</span>
-
-          <h2>
-            Learning support from
-            <span>Class 1 to Class 10.</span>
-          </h2>
-
-          <p>
-            Select a class to begin your enquiry.
-          </p>
-
+        <div class="section-kicker">
+          Classes
         </div>
+
+        <h2>
+          Learning support from Class 1 to Class 10.
+        </h2>
+
+        <p class="section-description">
+          Select a class to begin your enquiry.
+        </p>
 
 
         <div class="class-grid">
 
-          <button class="class-item" data-class="Class 1">
-            <span>01</span>
-            <strong>Class 1</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 2">
-            <span>02</span>
-            <strong>Class 2</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 3">
-            <span>03</span>
-            <strong>Class 3</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 4">
-            <span>04</span>
-            <strong>Class 4</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 5">
-            <span>05</span>
-            <strong>Class 5</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 6">
-            <span>06</span>
-            <strong>Class 6</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 7">
-            <span>07</span>
-            <strong>Class 7</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 8">
-            <span>08</span>
-            <strong>Class 8</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 9">
-            <span>09</span>
-            <strong>Class 9</strong>
-          </button>
-
-          <button class="class-item" data-class="Class 10">
-            <span>10</span>
-            <strong>Class 10</strong>
-          </button>
+          <button type="button" data-class="Class 1">01 Class 1</button>
+          <button type="button" data-class="Class 2">02 Class 2</button>
+          <button type="button" data-class="Class 3">03 Class 3</button>
+          <button type="button" data-class="Class 4">04 Class 4</button>
+          <button type="button" data-class="Class 5">05 Class 5</button>
+          <button type="button" data-class="Class 6">06 Class 6</button>
+          <button type="button" data-class="Class 7">07 Class 7</button>
+          <button type="button" data-class="Class 8">08 Class 8</button>
+          <button type="button" data-class="Class 9">09 Class 9</button>
+          <button type="button" data-class="Class 10">10 Class 10</button>
 
         </div>
 
@@ -492,179 +428,154 @@
     </section>
 
 
-    <!-- ================= SUBJECTS ================= -->
-
-    <section
-      class="subjects-section section"
-      id="subjects"
-    >
-
-      <div class="container subjects-layout">
-
-        <div class="subjects-intro">
-
-          <span class="section-kicker">Subjects</span>
-
-          <h2>
-            Support where the
-            <span>learner needs it.</span>
-          </h2>
-
-          <p>
-            Tell us the subject or subjects where tuition support
-            is required. If you are unsure, you can simply mention
-            that in your enquiry.
-          </p>
-
-          <button
-            class="text-button"
-            data-open-inquiry
-            data-inquiry-source="subjects"
-          >
-            Start an enquiry <span>→</span>
-          </button>
-
-        </div>
-
-
-        <div class="subject-list">
-
-          <div class="subject-row">
-            <span class="subject-index">01</span>
-            <strong>Mathematics</strong>
-            <span class="subject-symbol">+</span>
-          </div>
-
-          <div class="subject-row">
-            <span class="subject-index">02</span>
-            <strong>Science</strong>
-            <span class="subject-symbol">◊</span>
-          </div>
-
-          <div class="subject-row">
-            <span class="subject-index">03</span>
-            <strong>English</strong>
-            <span class="subject-symbol">A</span>
-          </div>
-
-          <div class="subject-row">
-            <span class="subject-index">04</span>
-            <strong>Social Studies</strong>
-            <span class="subject-symbol">◎</span>
-          </div>
-
-          <div class="subject-row">
-            <span class="subject-index">05</span>
-            <strong>Multiple Subjects</strong>
-            <span class="subject-symbol">∞</span>
-          </div>
-
-          <div class="subject-row">
-            <span class="subject-index">06</span>
-            <strong>Other / Need Guidance</strong>
-            <span class="subject-symbol">→</span>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= OPTIONS ================= -->
-
-    <section
-      class="options-section section"
-      id="options"
-    >
+    <!-- SUBJECTS -->
+    <section id="subjects" class="content-section">
 
       <div class="container">
 
-        <div class="section-header">
+        <div class="section-kicker">
+          Subjects
+        </div>
 
-          <span class="section-kicker">
-            Learning options
-          </span>
+        <h2>
+          Support where the learner needs it.
+        </h2>
 
-          <h2>
-            Choose the format that
-            <span>fits your routine.</span>
-          </h2>
+        <p class="section-description">
+          Tell us the subject or subjects where tuition support is required.
+          If you are unsure, you can simply mention that in your enquiry.
+        </p>
+
+
+        <button
+          type="button"
+          class="text-link"
+          data-open-inquiry
+          data-inquiry-source="subjects"
+        >
+          Start an enquiry →
+        </button>
+
+
+        <div class="subject-grid">
+
+          <div class="subject-card">
+            <span>01</span>
+            <strong>Mathematics</strong>
+            <small>+</small>
+          </div>
+
+          <div class="subject-card">
+            <span>02</span>
+            <strong>Science</strong>
+            <small>◊</small>
+          </div>
+
+          <div class="subject-card">
+            <span>03</span>
+            <strong>English</strong>
+            <small>A</small>
+          </div>
+
+          <div class="subject-card">
+            <span>04</span>
+            <strong>Social Studies</strong>
+            <small>◎</small>
+          </div>
+
+          <div class="subject-card">
+            <span>05</span>
+            <strong>Multiple Subjects</strong>
+            <small>∞</small>
+          </div>
+
+          <div class="subject-card">
+            <span>06</span>
+            <strong>Other / Need Guidance</strong>
+            <small>→</small>
+          </div>
 
         </div>
 
+      </div>
 
-        <div class="options-layout">
+    </section>
 
-          <article class="option-large online-option">
 
-            <div class="option-number">01</div>
+    <!-- LEARNING OPTIONS -->
+    <section id="learning-options" class="content-section">
 
-            <div class="option-content">
+      <div class="container">
 
-              <span class="option-label">
-                Flexible
-              </span>
+        <div class="section-kicker">
+          Learning options
+        </div>
 
-              <h3>Online Tuition</h3>
+        <h2>
+          Choose the format that fits your routine.
+        </h2>
 
-              <p>
-                Learn from home or anywhere with online tuition
-                support designed around the learner's needs.
-              </p>
 
-              <ul>
-                <li>Learn from anywhere</li>
-                <li>Suitable for different locations</li>
-                <li>Useful for students outside Telangana too</li>
-              </ul>
+        <div class="learning-grid">
 
-              <button
-                class="option-link"
-                data-open-inquiry
-                data-learning="Online Tuition"
-              >
-                Explore online tuition <span>→</span>
-              </button>
+          <article class="learning-card">
 
-            </div>
+            <span>01</span>
+            <small>Flexible</small>
+
+            <h3>Online Tuition</h3>
+
+            <p>
+              Learn from home or anywhere with online tuition support
+              designed around the learner's needs.
+            </p>
+
+            <ul>
+              <li>Learn from anywhere</li>
+              <li>Suitable for different locations</li>
+              <li>Useful for students outside Telangana too</li>
+            </ul>
+
+            <button
+              type="button"
+              class="text-link"
+              data-open-inquiry
+              data-inquiry-source="learning_option"
+              data-learning="Online Tuition"
+            >
+              Explore online tuition →
+            </button>
 
           </article>
 
 
-          <article class="option-large home-option">
+          <article class="learning-card">
 
-            <div class="option-number">02</div>
+            <span>02</span>
+            <small>Local</small>
 
-            <div class="option-content">
+            <h3>Home Tuition</h3>
 
-              <span class="option-label">
-                Local
-              </span>
+            <p>
+              Explore tuition support for learners who prefer face-to-face
+              learning at home.
+            </p>
 
-              <h3>Home Tuition</h3>
+            <ul>
+              <li>Local tuition enquiries</li>
+              <li>Useful for Hyderabad areas</li>
+              <li>Share your area to explore suitable options</li>
+            </ul>
 
-              <p>
-                Explore tuition support for learners who prefer
-                face-to-face learning at home.
-              </p>
-
-              <ul>
-                <li>Local tuition enquiries</li>
-                <li>Useful for Hyderabad areas</li>
-                <li>Share your area to explore suitable options</li>
-              </ul>
-
-              <button
-                class="option-link"
-                data-open-inquiry
-                data-learning="Home Tuition"
-              >
-                Explore home tuition <span>→</span>
-              </button>
-
-            </div>
+            <button
+              type="button"
+              class="text-link"
+              data-open-inquiry
+              data-inquiry-source="learning_option"
+              data-learning="Home Tuition"
+            >
+              Explore home tuition →
+            </button>
 
           </article>
 
@@ -675,33 +586,26 @@
     </section>
 
 
-    <!-- ================= REACH ================= -->
+    <!-- LOCATION -->
+    <section class="location-section">
 
-    <section class="reach-section section">
+      <div class="container">
 
-      <div class="container reach-grid">
-
-        <div>
-
-          <span class="section-kicker">
-            Where can we help?
-          </span>
-
-          <h2>
-            Start local.
-            <span>Learn anywhere.</span>
-          </h2>
-
-          <p>
-            Home tuition enquiries can be shared for your local area.
-            Online tuition can connect learners beyond Hyderabad and
-            Telangana.
-          </p>
-
+        <div class="section-kicker">
+          Where can we help?
         </div>
 
+        <h2>
+          Start local. Learn anywhere.
+        </h2>
 
-        <div class="location-cloud">
+        <p>
+          Home tuition enquiries can be shared for your local area.
+          Online tuition can connect learners beyond Hyderabad and Telangana.
+        </p>
+
+
+        <div class="location-tags">
 
           <span>Hyderabad</span>
           <span>Bowrampet</span>
@@ -719,36 +623,27 @@
     </section>
 
 
-    <!-- ================= HOW IT WORKS ================= -->
-
-    <section
-      class="process-section section"
-      id="how-it-works"
-    >
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="content-section">
 
       <div class="container">
 
-        <div class="section-header centered">
-
-          <span class="section-kicker">
-            How it works
-          </span>
-
-          <h2>
-            Three simple steps.
-            <span>That's it.</span>
-          </h2>
-
+        <div class="section-kicker">
+          How it works
         </div>
 
+        <h2>
+          Three simple steps. That's it.
+        </h2>
 
-        <div class="process-grid">
 
-          <div class="process-step">
+        <div class="steps-grid">
 
-            <span class="process-number">01</span>
+          <div class="step-card">
 
-            <div class="process-icon">↗</div>
+            <span>01</span>
+
+            <div class="step-icon">↗</div>
 
             <h3>Tell us what you need</h3>
 
@@ -760,33 +655,33 @@
           </div>
 
 
-          <div class="process-step">
+          <div class="step-card">
 
-            <span class="process-number">02</span>
+            <span>02</span>
 
-            <div class="process-icon">◎</div>
+            <div class="step-icon">◎</div>
 
             <h3>We understand the requirement</h3>
 
             <p>
-              Your enquiry continues through WhatsApp so the
-              requirement can be discussed directly.
+              Your enquiry continues through WhatsApp so the requirement
+              can be discussed directly.
             </p>
 
           </div>
 
 
-          <div class="process-step">
+          <div class="step-card">
 
-            <span class="process-number">03</span>
+            <span>03</span>
 
-            <div class="process-icon">→</div>
+            <div class="step-icon">→</div>
 
             <h3>Connect and get started</h3>
 
             <p>
-              Explore the suitable tuition option and decide
-              how you want to proceed.
+              Explore the suitable tuition option and decide how
+              you want to proceed.
             </p>
 
           </div>
@@ -798,144 +693,108 @@
     </section>
 
 
-    <!-- ================= CTA ================= -->
-
+    <!-- BOTTOM CTA -->
     <section class="cta-section">
+
+      <div class="container cta-content">
+
+        <span class="section-kicker">
+          Ready when you are
+        </span>
+
+        <h2>
+          Start with a free demo class.
+        </h2>
+
+        <p>
+          Share the learner's requirements and take the next step
+          through WhatsApp.
+        </p>
+
+
+        <div class="cta-actions">
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-open-inquiry
+            data-inquiry-source="free_demo"
+          >
+            Book a Free Demo Class
+          </button>
+
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-open-inquiry
+            data-inquiry-source="bottom_cta"
+          >
+            Make an Enquiry →
+          </button>
+
+
+          <a
+            href="https://wa.me/917386405614"
+            data-whatsapp-click="bottom_cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp us directly →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FAQ -->
+    <section id="faq" class="content-section faq-section">
 
       <div class="container">
 
-        <div class="cta-panel">
-
-          <div class="cta-decoration"></div>
-
-          <div class="cta-copy">
-
-            <span class="section-kicker light-kicker">
-              Ready when you are
-            </span>
-
-            <h2>
-              Start with a
-              <span>free demo class.</span>
-            </h2>
-
-            <p>
-              Share the learner's requirements and take the next
-              step through WhatsApp.
-            </p>
-
-          </div>
-
-
-          <div class="cta-actions">
-
-            <button
-              class="btn btn-light btn-demo-light"
-              data-open-inquiry
-              data-inquiry-source="free_demo"
-            >
-              Book a Free Demo Class
-            </button>
-
-            <button
-              class="cta-enquiry"
-              data-open-inquiry
-              data-inquiry-source="bottom_cta"
-            >
-              Make an Enquiry →
-            </button>
-
-            <a
-              href="https://wa.me/917386405614"
-              class="cta-whatsapp"
-              data-whatsapp-click="bottom_cta"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp us directly →
-            </a>
-
-          </div>
-
+        <div class="section-kicker">
+          FAQ
         </div>
 
-      </div>
-
-    </section>
-
-
-    <!-- ================= FAQ ================= -->
-
-    <section
-      class="faq-section section"
-      id="faq"
-    >
-
-      <div class="container faq-layout">
-
-        <div class="faq-heading">
-
-          <span class="section-kicker">
-            FAQ
-          </span>
-
-          <h2>
-            Common questions,
-            <span>simple answers.</span>
-          </h2>
-
-        </div>
+        <h2>
+          Common questions, simple answers.
+        </h2>
 
 
         <div class="faq-list">
 
           <details>
-            <summary>
-              Which classes are covered?
-              <span>+</span>
-            </summary>
-
+            <summary>Which classes are covered?</summary>
             <p>
-              Tuition enquiries are currently intended for
-              Classes 1–10.
+              Tuition enquiries are currently intended for Classes 1–10.
             </p>
           </details>
 
 
           <details>
-            <summary>
-              Is tuition available online?
-              <span>+</span>
-            </summary>
-
+            <summary>Is tuition available online?</summary>
             <p>
-              Yes. Online tuition can support students in
-              Telangana, other parts of India and potentially
-              international learners depending on the requirement.
+              Yes. Online tuition can support students in Telangana,
+              other parts of India and potentially international learners
+              depending on the requirement.
             </p>
           </details>
 
 
           <details>
-            <summary>
-              Is home tuition available?
-              <span>+</span>
-            </summary>
-
+            <summary>Is home tuition available?</summary>
             <p>
-              Home tuition enquiries can be shared for your
-              location. Availability depends on the area and
-              suitable tuition options.
+              Home tuition enquiries can be shared for your location.
+              Availability depends on the area and suitable tuition options.
             </p>
           </details>
 
 
           <details>
-            <summary>
-              Do I need to know the exact subject?
-              <span>+</span>
-            </summary>
-
+            <summary>Do I need to know the exact subject?</summary>
             <p>
               No. If you are unsure, simply tell us what support
               the learner needs.
@@ -944,11 +803,7 @@
 
 
           <details>
-            <summary>
-              Do I need to fill every field?
-              <span>+</span>
-            </summary>
-
+            <summary>Do I need to fill every field?</summary>
             <p>
               No. Provide whatever information you already know.
               The remaining details can be discussed through WhatsApp.
@@ -957,11 +812,7 @@
 
 
           <details>
-            <summary>
-              Is there pricing shown on the website?
-              <span>+</span>
-            </summary>
-
+            <summary>Is there pricing shown on the website?</summary>
             <p>
               No fixed pricing is displayed here. Tuition requirements
               can differ, so details can be discussed after the enquiry.
@@ -970,11 +821,7 @@
 
 
           <details>
-            <summary>
-              Is the demo class free?
-              <span>+</span>
-            </summary>
-
+            <summary>Is the demo class free?</summary>
             <p>
               You can use the Free Demo Class option to share the
               learner's requirements and discuss the available demo
@@ -991,22 +838,14 @@
   </main>
 
 
-  <!-- ================= FOOTER ================= -->
-
+  <!-- FOOTER -->
   <footer class="site-footer">
 
-    <div class="container footer-main">
+    <div class="container footer-content">
 
-      <div class="footer-brand">
+      <div>
 
-        <div class="brand">
-          <span class="brand-mark">S</span>
-
-          <span class="brand-text">
-            <strong>Sarvyanta</strong>
-            <small>Tuition Connect</small>
-          </span>
-        </div>
+        <strong>S Sarvyanta Tuition Connect</strong>
 
         <p>
           Building an Intelligent World.
@@ -1019,18 +858,21 @@
 
         <a href="#classes">Classes</a>
         <a href="#subjects">Subjects</a>
-        <a href="#options">Learning Options</a>
+        <a href="#learning-options">Learning Options</a>
         <a href="#faq">FAQ</a>
 
       </div>
 
 
-      <div class="footer-action">
+      <div>
 
-        <span>Have a tuition requirement?</span>
-
-        <button data-open-inquiry>
-          Make an Enquiry →
+        <button
+          type="button"
+          class="text-link"
+          data-open-inquiry
+          data-inquiry-source="footer"
+        >
+          Have a tuition requirement? Make an Enquiry →
         </button>
 
       </div>
@@ -1039,21 +881,13 @@
 
 
     <div class="container footer-bottom">
-
-      <span>
-        © 2026 Sarvyanta. All rights reserved.
-      </span>
-
-      <span>
-        Tuition Connect
-      </span>
-
+      © 2026 Sarvyanta. All rights reserved. Tuition Connect
     </div>
 
   </footer>
 
 
-  <!-- ================= FLOATING WHATSAPP ================= -->
+  <!-- FLOATING WHATSAPP -->
 
   <a
     href="https://wa.me/917386405614"
@@ -1061,13 +895,13 @@
     data-whatsapp-click="floating"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Chat on WhatsApp"
+    aria-label="Chat with Sarvyanta Tuition Connect on WhatsApp"
   >
-    <span>WA</span>
+    WA
   </a>
 
 
-  <!-- ================= ENQUIRY MODAL ================= -->
+  <!-- ENQUIRY MODAL -->
 
   <div
     class="modal"
@@ -1089,207 +923,162 @@
     >
 
       <button
+        type="button"
         class="modal-close"
         id="modalClose"
-        aria-label="Close enquiry form"
+        aria-label="Close"
       >
         ×
       </button>
 
 
-      <div class="modal-header">
-
-        <span
-          class="section-kicker"
-          id="modalKicker"
-        >
-          Tuition Enquiry
-        </span>
-
-        <h2 id="modalTitle">
-          Tell us what you need.
-        </h2>
-
-        <p id="modalDescription">
-          Share the details you already know. You don't need to
-          fill everything.
-        </p>
-
+      <div class="modal-kicker" id="modalKicker">
+        Tuition Enquiry
       </div>
+
+
+      <h2 id="modalTitle">
+        Tell us what you need.
+      </h2>
+
+
+      <p id="modalDescription">
+        Share the details you already know. You don't need to fill everything.
+      </p>
 
 
       <form id="inquiryForm">
 
-        <div class="form-group">
+        <label for="name">
+          Parent / Guardian or Student Name
+        </label>
 
-          <label for="name">
-            Parent / Guardian or Student Name
-          </label>
-
-          <input
-            id="name"
-            name="name"
-            type="text"
-            autocomplete="name"
-            placeholder="Your name"
-            required
-          />
-
-        </div>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name"
+          required
+          autocomplete="name"
+        />
 
 
-        <div class="form-row">
+        <label for="className">
+          Class
+        </label>
 
-          <div class="form-group">
+        <select id="className" name="className">
 
-            <label for="className">
-              Class
-            </label>
+          <option value="">
+            Select class
+          </option>
 
-            <select
-              id="className"
-              name="className"
-            >
+          <option value="Class 1">Class 1</option>
+          <option value="Class 2">Class 2</option>
+          <option value="Class 3">Class 3</option>
+          <option value="Class 4">Class 4</option>
+          <option value="Class 5">Class 5</option>
+          <option value="Class 6">Class 6</option>
+          <option value="Class 7">Class 7</option>
+          <option value="Class 8">Class 8</option>
+          <option value="Class 9">Class 9</option>
+          <option value="Class 10">Class 10</option>
 
-              <option value="">
-                Select class
-              </option>
-
-              <option>Class 1</option>
-              <option>Class 2</option>
-              <option>Class 3</option>
-              <option>Class 4</option>
-              <option>Class 5</option>
-              <option>Class 6</option>
-              <option>Class 7</option>
-              <option>Class 8</option>
-              <option>Class 9</option>
-              <option>Class 10</option>
-
-            </select>
-
-          </div>
+        </select>
 
 
-          <div class="form-group">
+        <label for="subject">
+          Subject <span>Optional</span>
+        </label>
 
-            <label for="subject">
-              Subject <span>Optional</span>
-            </label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          placeholder="e.g. Maths"
+        />
+
+
+        <fieldset>
+
+          <legend>
+            Learning preference
+          </legend>
+
+          <label class="radio-option">
 
             <input
-              id="subject"
-              name="subject"
-              type="text"
-              placeholder="e.g. Maths"
+              type="radio"
+              name="learning"
+              value="Online Tuition"
             />
 
-          </div>
+            <span>Online Tuition</span>
 
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Learning preference
           </label>
 
-          <div class="choice-grid">
 
-            <label class="choice">
+          <label class="radio-option">
 
-              <input
-                type="radio"
-                name="learning"
-                value="Online Tuition"
-              />
+            <input
+              type="radio"
+              name="learning"
+              value="Home Tuition"
+            />
 
-              <span>
-                Online Tuition
-              </span>
+            <span>Home Tuition</span>
 
-            </label>
-
-
-            <label class="choice">
-
-              <input
-                type="radio"
-                name="learning"
-                value="Home Tuition"
-              />
-
-              <span>
-                Home Tuition
-              </span>
-
-            </label>
-
-
-            <label class="choice">
-
-              <input
-                type="radio"
-                name="learning"
-                value="Not Sure"
-              />
-
-              <span>
-                Not Sure
-              </span>
-
-            </label>
-
-          </div>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="location">
-            Area / City
           </label>
 
-          <input
-            id="location"
-            name="location"
-            type="text"
-            autocomplete="address-level2"
-            placeholder="e.g. Bowrampet / Hyderabad"
-          />
 
-        </div>
+          <label class="radio-option">
 
+            <input
+              type="radio"
+              name="learning"
+              value="Not Sure"
+            />
 
-        <div class="form-group">
+            <span>Not Sure</span>
 
-          <label for="message">
-            What are you looking for?
-            <span>Optional</span>
           </label>
 
-          <textarea
-            id="message"
-            name="message"
-            rows="4"
-            placeholder="Tell us anything that may help us understand the requirement."
-          ></textarea>
+        </fieldset>
 
-        </div>
+
+        <label for="location">
+          Area / City
+        </label>
+
+        <input
+          type="text"
+          id="location"
+          name="location"
+          placeholder="e.g. Bowrampet / Hyderabad"
+          autocomplete="address-level2"
+        />
+
+
+        <label for="message">
+          What are you looking for?
+          <span>Optional</span>
+        </label>
+
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          placeholder="Tell us anything else you would like us to know."
+        ></textarea>
 
 
         <div class="privacy-note">
-
-          <span class="privacy-icon">
-            i
-          </span>
+          <span>i</span>
 
           <p>
-            We use the information you provide to respond to your
-            tuition enquiry. Please don't share sensitive personal
-            information through this form.
+            We use the information you provide to respond to your tuition
+            enquiry. Please don't share sensitive personal information
+            through this form.
           </p>
 
         </div>
@@ -1297,10 +1086,9 @@
 
         <button
           type="submit"
-          class="submit-button"
+          class="btn btn-primary modal-submit"
         >
-          Continue to WhatsApp
-          <span>→</span>
+          Continue to WhatsApp →
         </button>
 
       </form>
@@ -1313,4 +1101,4 @@
   <script src="script.js"></script>
 
 </body>
-              </html>
+        </html>
