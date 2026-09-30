@@ -450,33 +450,39 @@ document
 
 /* ================= WHATSAPP ================= */
 
-document
-  .querySelectorAll(
-    "[data-whatsapp-click]"
-  )
-  .forEach((link) => {
+const whatsappMessages = {
+  top_bar:
+    "Hello Sarvyanta Tuition Connect,\nI would like to know more about online and home tuition for Classes 1–10.",
 
-    link.addEventListener(
-      "click",
-      () => {
+  navigation:
+    "Hello Sarvyanta Tuition Connect,\nI would like to enquire about tuition support for Classes 1–10.",
 
-        trackEvent(
-          "whatsapp_click",
-          {
+  hero:
+    "Hello Sarvyanta Tuition Connect,\nI would like to enquire about tuition for my child. Please share the suitable options.",
 
-            source:
-              link.dataset.whatsappClick ||
-              "unknown"
+  bottom_cta:
+    "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry. Please help me with the next steps.",
 
-          }
-        );
+  floating:
+    "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry. Please help me with the suitable tuition option."
+};
 
-      }
-    );
+document.querySelectorAll("[data-whatsapp-click]").forEach((link) => {
+  const source = link.dataset.whatsappClick || "unknown";
 
+  const message =
+    whatsappMessages[source] ||
+    "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry.";
+
+  /* Set the pre-filled WhatsApp message */
+  link.href = getWhatsAppUrl(message);
+
+  link.addEventListener("click", () => {
+    trackEvent("whatsapp_click", {
+      source
+    });
   });
-
-
+});
 
 /* ================= FORM SUBMISSION ================= */
 
