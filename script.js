@@ -175,8 +175,7 @@ function openInquiryModal(
 
 
   /*
-    Existing GA4 event names are retained
-    so historical analytics are not disrupted.
+    Existing GA4 event name retained.
   */
 
   trackEvent("inquiry_open", {
