@@ -1,60 +1,30 @@
 const WHATSAPP_NUMBER = "917386406514";
 
-
 /* ================= ANALYTICS ================= */
 
 function trackEvent(eventName, params = {}) {
-
   if (typeof window.gtag === "function") {
-
-    window.gtag(
-      "event",
-      eventName,
-      params
-    );
-
+    window.gtag("event", eventName, params);
   }
-
 }
 
-
 function getWhatsAppUrl(message) {
-
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
 }
 
 
 /* ================= CAMPAIGN / SOURCE TRACKING ================= */
 
-const urlParams =
-  new URLSearchParams(
-    window.location.search
-  );
+const urlParams = new URLSearchParams(window.location.search);
+
+const trafficSource = urlParams.get("utm_source") || "";
+const trafficMedium = urlParams.get("utm_medium") || "";
+const trafficCampaign = urlParams.get("utm_campaign") || "";
 
 
-const trafficSource =
-  urlParams.get("utm_source") || "";
+/* Preserve campaign information for this browser session */
 
-
-const trafficMedium =
-  urlParams.get("utm_medium") || "";
-
-
-const trafficCampaign =
-  urlParams.get("utm_campaign") || "";
-
-
-/*
-  Preserve campaign information for this browser session.
-*/
-
-if (
-  trafficSource ||
-  trafficMedium ||
-  trafficCampaign
-) {
-
+if (trafficSource || trafficMedium || trafficCampaign) {
   sessionStorage.setItem(
     "sarvyanta_traffic_source",
     trafficSource
@@ -69,326 +39,198 @@ if (
     "sarvyanta_traffic_campaign",
     trafficCampaign
   );
-
 }
 
 
 const storedTrafficSource =
-  sessionStorage.getItem(
-    "sarvyanta_traffic_source"
-  ) || "";
-
+  sessionStorage.getItem("sarvyanta_traffic_source") || "";
 
 const storedTrafficMedium =
-  sessionStorage.getItem(
-    "sarvyanta_traffic_medium"
-  ) || "";
-
+  sessionStorage.getItem("sarvyanta_traffic_medium") || "";
 
 const storedTrafficCampaign =
-  sessionStorage.getItem(
-    "sarvyanta_traffic_campaign"
-  ) || "";
+  sessionStorage.getItem("sarvyanta_traffic_campaign") || "";
 
 
 function getTrafficParams() {
-
   return {
-
-    traffic_source:
-      storedTrafficSource ||
-      "direct",
-
-    traffic_medium:
-      storedTrafficMedium ||
-      "none",
-
-    traffic_campaign:
-      storedTrafficCampaign ||
-      "none"
-
+    traffic_source: storedTrafficSource || "direct",
+    traffic_medium: storedTrafficMedium || "none",
+    traffic_campaign: storedTrafficCampaign || "none"
   };
+}
 
+
+/* ================= WHATSAPP STATUS VISIT TRACKING ================= */
+
+/*
+  This specifically identifies visitors who arrive through:
+
+  ?utm_source=whatsapp
+  &utm_medium=status
+  &utm_campaign=tuition
+
+  The event is intentionally separate from GA4's standard
+  acquisition reporting so we can directly verify WhatsApp
+  Status traffic.
+*/
+
+const isWhatsAppStatusTraffic =
+  trafficSource.toLowerCase() === "whatsapp" &&
+  trafficMedium.toLowerCase() === "status";
+
+
+const statusVisitAlreadyTracked =
+  sessionStorage.getItem(
+    "sarvyanta_whatsapp_status_visit"
+  );
+
+
+if (
+  isWhatsAppStatusTraffic &&
+  !statusVisitAlreadyTracked
+) {
+  trackEvent("whatsapp_status_visit", {
+    traffic_source: "whatsapp",
+    traffic_medium: "status",
+    traffic_campaign: trafficCampaign || "tuition"
+  });
+
+  sessionStorage.setItem(
+    "sarvyanta_whatsapp_status_visit",
+    "1"
+  );
 }
 
 
 /* ================= MOBILE NAV ================= */
 
-const menuToggle =
-  document.getElementById(
-    "menuToggle"
-  );
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileNav = document.querySelector(".mobile-nav");
+const mobileNavLinks = document.querySelectorAll(".mobile-nav a");
 
 
-const mainNav =
-  document.getElementById(
-    "mainNav"
-  );
+if (menuToggle && mobileNav) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = mobileNav.classList.toggle("open");
+
+    menuToggle.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+  });
+}
 
 
-if (
-  menuToggle &&
-  mainNav
-) {
+mobileNavLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (mobileNav) {
+      mobileNav.classList.remove("open");
+    }
 
-  menuToggle.addEventListener(
-    "click",
-    () => {
-
-      const isOpen =
-        mainNav.classList.toggle(
-          "show"
-        );
-
-
+    if (menuToggle) {
       menuToggle.setAttribute(
         "aria-expanded",
-        String(isOpen)
+        "false"
       );
-
-
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen
-          ? "Close menu"
-          : "Open menu"
-      );
-
-
-      trackEvent(
-        "mobile_menu_toggle",
-        {
-
-          state:
-            isOpen
-              ? "open"
-              : "closed",
-
-          ...getTrafficParams()
-
-        }
-      );
-
     }
-  );
-
-
-  mainNav
-    .querySelectorAll("a")
-    .forEach(
-      (link) => {
-
-        link.addEventListener(
-          "click",
-          () => {
-
-            mainNav.classList.remove(
-              "show"
-            );
-
-            menuToggle.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-            menuToggle.setAttribute(
-              "aria-label",
-              "Open menu"
-            );
-
-          }
-        );
-
-      }
-    );
-
-}
+  });
+});
 
 
 /* ================= ENQUIRY MODAL ================= */
 
 const inquiryModal =
-  document.getElementById(
-    "inquiryModal"
-  );
-
-
-const modalClose =
-  document.getElementById(
-    "modalClose"
-  );
-
+  document.getElementById("inquiryModal");
 
 const inquiryForm =
-  document.getElementById(
-    "inquiryForm"
-  );
+  document.getElementById("inquiryForm");
+
+const closeInquiryButtons =
+  document.querySelectorAll("[data-close-inquiry]");
+
+const openInquiryButtons =
+  document.querySelectorAll("[data-open-inquiry]");
 
 
-const modalTitle =
-  document.getElementById(
-    "modalTitle"
-  );
+let currentEnquirySource = "enquiry";
 
 
-const modalKicker =
-  document.getElementById(
-    "modalKicker"
-  );
-
-
-const modalDescription =
-  document.getElementById(
-    "modalDescription"
-  );
-
-
-let currentEnquirySource =
-  "unknown";
-
-
-function openInquiryModal(
-  source = "unknown",
-  learning = "",
-  className = ""
-) {
+function openInquiryModal(source = "enquiry", options = {}) {
 
   if (!inquiryModal) {
     return;
   }
 
+  currentEnquirySource = source;
 
-  currentEnquirySource =
-    source;
-
-
-  inquiryModal.dataset.source =
-    source;
-
-
-  const isFreeDemo =
-    source === "free_demo";
-
-
-  if (modalKicker) {
-
-    modalKicker.textContent =
-      isFreeDemo
-        ? "Free Demo Class"
-        : "Tuition Enquiry";
-
-  }
-
-
-  if (modalTitle) {
-
-    modalTitle.textContent =
-      isFreeDemo
-        ? "Book your free demo class."
-        : "Tell us what you need.";
-
-  }
-
-
-  if (modalDescription) {
-
-    modalDescription.textContent =
-      isFreeDemo
-        ? "Share the details you already know. We’ll continue with you through WhatsApp."
-        : "Share the details you already know. You don't need to fill everything.";
-
-  }
-
-
-  inquiryModal.classList.add(
-    "show"
-  );
-
+  inquiryModal.classList.add("open");
 
   inquiryModal.setAttribute(
     "aria-hidden",
     "false"
   );
 
-
-  document.body.classList.add(
-    "modal-open"
-  );
+  document.body.classList.add("modal-open");
 
 
-  /* PRESELECT LEARNING */
+  /* Learning preference */
 
-  if (learning) {
+  if (options.learning) {
 
-    const option =
-      inquiryForm?.querySelector(
-        `input[name="learning"][value="${CSS.escape(learning)}"]`
+    const learningRadio =
+      document.querySelector(
+        `input[name="learning"][value="${options.learning}"]`
       );
 
-
-    if (option) {
-
-      option.checked = true;
-
+    if (learningRadio) {
+      learningRadio.checked = true;
     }
-
   }
 
 
-  /* PRESELECT CLASS */
+  /* Class preference */
 
-  if (className) {
+  if (options.className) {
 
     const classSelect =
-      document.getElementById(
-        "className"
-      );
-
+      document.getElementById("className");
 
     if (classSelect) {
 
-      classSelect.value =
-        className;
+      const matchingOption =
+        Array.from(classSelect.options).find(
+          (option) =>
+            option.value.toLowerCase() ===
+            String(options.className).toLowerCase()
+        );
 
+      if (matchingOption) {
+        classSelect.value =
+          matchingOption.value;
+      }
     }
-
   }
 
 
-  /* GA4 */
+  trackEvent("enquiry_modal_open", {
+    source,
+    ...getTrafficParams()
+  });
 
-  trackEvent(
-    "inquiry_open",
-    {
 
-      source,
+  setTimeout(() => {
 
-      form_type:
-        isFreeDemo
-          ? "free_demo"
-          : "enquiry",
+    const firstInput =
+      inquiryModal.querySelector(
+        "select, input, textarea"
+      );
 
-      ...getTrafficParams()
-
+    if (firstInput) {
+      firstInput.focus();
     }
-  );
 
-
-  /* FOCUS */
-
-  setTimeout(
-    () => {
-
-      document
-        .getElementById(
-          "className"
-        )
-        ?.focus();
-
-    },
-    80
-  );
-
+  }, 100);
 }
 
 
@@ -398,95 +240,68 @@ function closeInquiryModal() {
     return;
   }
 
-
-  inquiryModal.classList.remove(
-    "show"
-  );
-
+  inquiryModal.classList.remove("open");
 
   inquiryModal.setAttribute(
     "aria-hidden",
     "true"
   );
 
+  document.body.classList.remove("modal-open");
 
-  document.body.classList.remove(
-    "modal-open"
-  );
-
-
-  currentEnquirySource =
-    "unknown";
-
+  currentEnquirySource = "enquiry";
 }
 
 
-/* ================= OPEN ENQUIRY BUTTONS ================= */
+openInquiryButtons.forEach((button) => {
 
-document
-  .querySelectorAll(
-    "[data-open-inquiry]"
-  )
-  .forEach(
-    (button) => {
+  button.addEventListener("click", () => {
 
-      button.addEventListener(
-        "click",
-        () => {
+    const source =
+      button.dataset.inquirySource ||
+      "enquiry";
 
-          const source =
-            button.dataset.inquirySource ||
-            "unknown";
+    const learning =
+      button.dataset.learning || "";
 
+    const className =
+      button.dataset.class || "";
 
-          const learning =
-            button.dataset.learning ||
-            "";
+    openInquiryModal(source, {
+      learning,
+      className
+    });
 
+  });
 
-          const className =
-            button.dataset.class ||
-            "";
+});
 
 
-          openInquiryModal(
-            source,
-            learning,
-            className
-          );
+closeInquiryButtons.forEach((button) => {
 
-        }
-      );
+  button.addEventListener("click", () => {
+    closeInquiryModal();
+  });
 
-    }
-  );
+});
 
 
-/* ================= CLOSE MODAL ================= */
+if (inquiryModal) {
 
-document
-  .querySelectorAll(
-    "[data-close-modal]"
-  )
-  .forEach(
-    (element) => {
+  inquiryModal.addEventListener(
+    "click",
+    (event) => {
 
-      element.addEventListener(
-        "click",
-        closeInquiryModal
-      );
+      if (
+        event.target === inquiryModal
+      ) {
+        closeInquiryModal();
+      }
 
     }
   );
+}
 
-
-modalClose?.addEventListener(
-  "click",
-  closeInquiryModal
-);
-
-
-/* ================= ESCAPE ================= */
 
 document.addEventListener(
   "keydown",
@@ -494,13 +309,10 @@ document.addEventListener(
 
     if (
       event.key === "Escape" &&
-      inquiryModal?.classList.contains(
-        "show"
-      )
+      inquiryModal &&
+      inquiryModal.classList.contains("open")
     ) {
-
       closeInquiryModal();
-
     }
 
   }
@@ -509,49 +321,36 @@ document.addEventListener(
 
 /* ================= CLASS SELECTION ================= */
 
-document
-  .querySelectorAll(
-    "[data-class]"
-  )
-  .forEach(
-    (button) => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const selectedClass =
-            button.dataset.class ||
-            "";
+const classButtons =
+  document.querySelectorAll("[data-class]");
 
 
-          trackEvent(
-            "class_selected",
-            {
+classButtons.forEach((button) => {
 
-              class_name:
-                selectedClass,
+  button.addEventListener("click", () => {
 
-              ...getTrafficParams()
+    const className =
+      button.dataset.class || "";
 
-            }
-          );
-
-
-          openInquiryModal(
-            "class_selector",
-            "",
-            selectedClass
-          );
-
-        }
-      );
-
-    }
-  );
+    trackEvent("class_selected", {
+      class_name: className,
+      ...getTrafficParams()
+    });
 
 
-/* ================= WHATSAPP ================= */
+    openInquiryModal(
+      "class_selection",
+      {
+        className
+      }
+    );
+
+  });
+
+});
+
+
+/* ================= WHATSAPP BUTTONS ================= */
 
 const whatsappMessages = {
 
@@ -569,139 +368,110 @@ const whatsappMessages = {
 
   floating:
     "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry. Please help me with the suitable tuition option."
-
 };
 
 
-document
-  .querySelectorAll(
+const whatsappButtons =
+  document.querySelectorAll(
     "[data-whatsapp-click]"
-  )
-  .forEach(
-    (link) => {
-
-      const source =
-        link.dataset.whatsappClick ||
-        "unknown";
-
-
-      const message =
-        whatsappMessages[source] ||
-        "Hello Sarvyanta Tuition Connect,\nI would like to make a tuition enquiry.";
-
-
-      /*
-        Set pre-filled WhatsApp message.
-      */
-
-      link.href =
-        getWhatsAppUrl(
-          message
-        );
-
-
-      link.addEventListener(
-        "click",
-        () => {
-
-          trackEvent(
-            "whatsapp_click",
-            {
-
-              source,
-
-              ...getTrafficParams()
-
-            }
-          );
-
-        }
-      );
-
-    }
   );
+
+
+whatsappButtons.forEach((button) => {
+
+  button.addEventListener("click", () => {
+
+    const source =
+      button.dataset.whatsappClick ||
+      "unknown";
+
+    const message =
+      whatsappMessages[source] ||
+      whatsappMessages.floating;
+
+
+    trackEvent("whatsapp_click", {
+      button_location: source,
+      ...getTrafficParams()
+    });
+
+
+    window.open(
+      getWhatsAppUrl(message),
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+  });
+
+});
 
 
 /* ================= FORM SUBMISSION ================= */
 
-inquiryForm?.addEventListener(
-  "submit",
-  (event) => {
+if (inquiryForm) {
 
-    event.preventDefault();
+  inquiryForm.addEventListener(
+    "submit",
+    (event) => {
 
-
-    const formData =
-      new FormData(
-        inquiryForm
-      );
+      event.preventDefault();
 
 
-    const className =
-      String(
-        formData.get(
-          "className"
-        ) ||
-        ""
-      ).trim();
+      const formData =
+        new FormData(inquiryForm);
 
 
-    const subject =
-      String(
-        formData.get(
-          "subject"
-        ) ||
-        ""
-      ).trim();
+      const className =
+        String(
+          formData.get("className") || ""
+        ).trim();
 
 
-    const learning =
-      String(
-        formData.get(
-          "learning"
-        ) ||
-        ""
-      ).trim();
+      const subject =
+        String(
+          formData.get("subject") || ""
+        ).trim();
 
 
-    const location =
-      String(
-        formData.get(
-          "location"
-        ) ||
-        ""
-      ).trim();
+      const learning =
+        String(
+          formData.get("learning") || ""
+        ).trim();
 
 
-    const message =
-      String(
-        formData.get(
-          "message"
-        ) ||
-        ""
-      ).trim();
+      const location =
+        String(
+          formData.get("location") || ""
+        ).trim();
 
 
-    const isFreeDemo =
-      currentEnquirySource ===
-      "free_demo";
+      const message =
+        String(
+          formData.get("message") || ""
+        ).trim();
 
 
-    /*
-      PRIVACY
+      const isFreeDemo =
+        currentEnquirySource ===
+        "free_demo";
 
-      No name, phone number,
-      location or free-text
-      is sent to GA4.
 
-      Only non-personal
-      enquiry attributes are
-      tracked.
-    */
+      /*
+        Privacy-safe analytics.
 
-    trackEvent(
-      "inquiry_submitted",
-      {
+        We DO NOT send:
+        - Name
+        - Phone number
+        - Location value
+        - Free-text requirement
+        - WhatsApp number
+
+        Only boolean/categorical information is
+        sent to GA4.
+      */
+
+      trackEvent("inquiry_submitted", {
 
         has_class:
           Boolean(className),
@@ -726,174 +496,56 @@ inquiryForm?.addEventListener(
 
         ...getTrafficParams()
 
-      }
-    );
+      });
 
 
-    /* ================= WHATSAPP MESSAGE ================= */
+      /* Build WhatsApp message */
 
-    const lines = [
+      const lines = [
 
-      "Hello Sarvyanta Tuition Connect,",
+        "Hello Sarvyanta Tuition Connect,",
 
-      isFreeDemo
-        ? "I would like to book a free demo class."
-        : "I would like to make a tuition enquiry.",
+        isFreeDemo
+          ? "I would like to book a free demo class."
+          : "I would like to make a tuition enquiry.",
 
-      className
-        ? `Class: ${className}`
-        : "",
+        className
+          ? `Class: ${className}`
+          : "",
 
-      subject
-        ? `Subject: ${subject}`
-        : "",
+        subject
+          ? `Subject: ${subject}`
+          : "",
 
-      learning
-        ? `Learning preference: ${learning}`
-        : "",
+        learning
+          ? `Learning preference: ${learning}`
+          : "",
 
-      location
-        ? `Area / City: ${location}`
-        : "",
+        location
+          ? `Area / City: ${location}`
+          : "",
 
-      message
-        ? `Requirement: ${message}`
-        : "",
+        message
+          ? `Requirement: ${message}`
+          : "",
 
-      "Please let me know the suitable next steps."
+        "Please let me know the suitable next steps."
 
-    ].filter(Boolean);
-
-
-    window.open(
-      getWhatsAppUrl(
-        lines.join("\n")
-      ),
-      "_blank",
-      "noopener,noreferrer"
-    );
+      ].filter(Boolean);
 
 
-    /* RESET */
-
-    inquiryForm.reset();
-
-    closeInquiryModal();
-
-  }
-);
-
-
-/* ================= FAQ TRACKING ================= */
-
-document
-  .querySelectorAll(
-    ".faq-list details"
-  )
-  .forEach(
-    (item) => {
-
-      item.addEventListener(
-        "toggle",
-        () => {
-
-          if (item.open) {
-
-            const question =
-              item
-                .querySelector(
-                  "summary"
-                )
-                ?.childNodes[0]
-                ?.textContent
-                ?.trim() ||
-              "";
-
-
-            trackEvent(
-              "faq_open",
-              {
-
-                question,
-
-                ...getTrafficParams()
-
-              }
-            );
-
-          }
-
-        }
+      window.open(
+        getWhatsAppUrl(
+          lines.join("\n")
+        ),
+        "_blank",
+        "noopener,noreferrer"
       );
 
-    }
-  );
 
+      inquiryForm.reset();
 
-/* ================= SCROLL DEPTH ================= */
-
-const scrollMilestones = [
-  25,
-  50,
-  75,
-  90
-];
-
-
-const reachedMilestones =
-  new Set();
-
-
-function trackScrollDepth() {
-
-  const scrollable =
-    document.documentElement
-      .scrollHeight -
-    window.innerHeight;
-
-
-  if (scrollable <= 0) {
-    return;
-  }
-
-
-  const percentage =
-    Math.round(
-      (
-        window.scrollY /
-        scrollable
-      ) * 100
-    );
-
-
-  scrollMilestones.forEach(
-    (milestone) => {
-
-      if (
-        percentage >= milestone &&
-        !reachedMilestones.has(
-          milestone
-        )
-      ) {
-
-        reachedMilestones.add(
-          milestone
-        );
-
-
-        trackEvent(
-          "scroll_depth",
-          {
-
-            percent:
-              milestone,
-
-            ...getTrafficParams()
-
-          }
-        );
-
-      }
+      closeInquiryModal();
 
     }
   );
@@ -901,9 +553,100 @@ function trackScrollDepth() {
 }
 
 
+/* ================= FAQ TRACKING ================= */
+
+const faqItems =
+  document.querySelectorAll(
+    "details"
+  );
+
+
+faqItems.forEach((faq, index) => {
+
+  faq.addEventListener(
+    "toggle",
+    () => {
+
+      if (faq.open) {
+
+        trackEvent(
+          "faq_opened",
+          {
+            faq_number: index + 1,
+            ...getTrafficParams()
+          }
+        );
+
+      }
+
+    }
+  );
+
+});
+
+
+/* ================= SCROLL DEPTH ================= */
+
+const scrollMilestones =
+  [25, 50, 75, 90];
+
+const scrollTracked =
+  new Set();
+
+
 window.addEventListener(
   "scroll",
-  trackScrollDepth,
+  () => {
+
+    const scrollTop =
+      window.scrollY;
+
+    const documentHeight =
+      document.documentElement
+        .scrollHeight -
+      window.innerHeight;
+
+
+    if (documentHeight <= 0) {
+      return;
+    }
+
+
+    const scrollPercentage =
+      Math.round(
+        (scrollTop /
+          documentHeight) *
+        100
+      );
+
+
+    scrollMilestones.forEach(
+      (milestone) => {
+
+        if (
+          scrollPercentage >= milestone &&
+          !scrollTracked.has(milestone)
+        ) {
+
+          scrollTracked.add(milestone);
+
+
+          trackEvent(
+            "scroll_depth",
+            {
+              depth_percent:
+                milestone,
+
+              ...getTrafficParams()
+            }
+          );
+
+        }
+
+      }
+    );
+
+  },
   {
     passive: true
   }
@@ -913,9 +656,7 @@ window.addEventListener(
 /* ================= URL CLASS PREFILL ================= */
 
 const classFromUrl =
-  urlParams.get(
-    "class"
-  );
+  urlParams.get("class");
 
 
 if (classFromUrl) {
@@ -928,28 +669,19 @@ if (classFromUrl) {
 
   if (classSelect) {
 
-    const normalizedClass =
-      classFromUrl
-        .replace(/\+/g, " ")
-        .toLowerCase();
-
-
     const matchingOption =
       Array.from(
         classSelect.options
       ).find(
         (option) =>
-          option.value
-            .toLowerCase() ===
-          normalizedClass
+          option.value.toLowerCase() ===
+          classFromUrl.toLowerCase()
       );
 
 
     if (matchingOption) {
-
       classSelect.value =
         matchingOption.value;
-
     }
 
   }
@@ -962,11 +694,9 @@ if (classFromUrl) {
 trackEvent(
   "tuition_page_view",
   {
-
     page_type:
       "tuition_landing",
 
     ...getTrafficParams()
-
   }
 );
