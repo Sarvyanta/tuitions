@@ -1,0 +1,924 @@
+/* =========================================================
+   SARVYANTA TUITION - TUTOR REGISTRATION
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #10213f;
+  background:
+    linear-gradient(
+      180deg,
+      #f5f9ff 0%,
+      #eef5ff 45%,
+      #ffffff 100%
+    );
+
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid #dfe9f7;
+}
+
+.header-inner {
+  width: min(1160px, calc(100% - 36px));
+
+  margin: auto;
+
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 13px;
+
+  color: white;
+
+  font-size: 21px;
+  font-weight: 800;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0757d9,
+      #14a6f4
+    );
+
+  box-shadow:
+    0 9px 22px rgba(20, 105, 220, 0.22);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text strong {
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.brand-text small {
+  color: #667a98;
+  font-size: 12px;
+}
+
+.header-whatsapp {
+  padding: 10px 17px;
+
+  border-radius: 999px;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  background: #0b8f55;
+
+  box-shadow:
+    0 8px 18px rgba(11, 143, 85, 0.18);
+
+  transition: 0.2s ease;
+}
+
+.header-whatsapp:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    90px 18px
+    85px;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(38, 143, 255, 0.22),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(0, 191, 255, 0.16),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #061b46,
+      #073d8f 55%,
+      #0964bf
+    );
+
+  color: white;
+}
+
+.hero::after {
+  content: "";
+
+  position: absolute;
+
+  width: 340px;
+  height: 340px;
+
+  right: -120px;
+  bottom: -180px;
+
+  border-radius: 50%;
+
+  border: 55px solid rgba(255, 255, 255, 0.06);
+}
+
+.hero-content {
+  width: min(1000px, calc(100% - 10px));
+
+  margin: auto;
+
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  display: inline-flex;
+
+  padding: 7px 13px;
+
+  margin-bottom: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.hero h1 {
+  max-width: 780px;
+
+  font-size: clamp(38px, 6vw, 68px);
+
+  line-height: 1.06;
+
+  letter-spacing: -0.035em;
+
+  margin-bottom: 24px;
+}
+
+.hero-description {
+  max-width: 720px;
+
+  color: rgba(255, 255, 255, 0.84);
+
+  font-size: clamp(17px, 2vw, 20px);
+
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 13px;
+
+  margin-top: 32px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 50px;
+
+  padding: 0 22px;
+
+  border-radius: 13px;
+
+  font-weight: 750;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primary-button {
+  color: #073c83;
+
+  background: white;
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.secondary-button {
+  color: white;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+   ========================================================= */
+
+.content-section,
+.process-section,
+.note-section {
+  width: min(1080px, calc(100% - 36px));
+
+  margin: auto;
+}
+
+.content-section {
+  padding: 82px 0 70px;
+}
+
+.section-heading {
+  max-width: 760px;
+
+  margin-bottom: 34px;
+}
+
+.section-label {
+  display: inline-block;
+
+  margin-bottom: 10px;
+
+  color: #0862ca;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.12em;
+}
+
+.section-heading h2 {
+  color: #0a2146;
+
+  font-size: clamp(29px, 4vw, 43px);
+
+  line-height: 1.15;
+
+  letter-spacing: -0.025em;
+
+  margin-bottom: 14px;
+}
+
+.section-heading p {
+  color: #61718b;
+
+  font-size: 17px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-card {
+  padding: clamp(24px, 5vw, 48px);
+
+  border: 1px solid #dce8f7;
+
+  border-radius: 25px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  box-shadow:
+    0 24px 65px rgba(23, 70, 125, 0.11);
+}
+
+#tutorForm {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.form-group:nth-last-of-type(1),
+.form-group:nth-last-of-type(2) {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  color: #18365f;
+
+  font-size: 14px;
+
+  font-weight: 750;
+}
+
+input,
+textarea {
+  width: 100%;
+
+  border: 1px solid #cfdded;
+
+  border-radius: 12px;
+
+  background: #fafdff;
+
+  color: #10213f;
+
+  padding: 14px 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+input {
+  min-height: 49px;
+}
+
+textarea {
+  min-height: 130px;
+
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #91a0b5;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #1988e8;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(25, 136, 232, 0.09);
+}
+
+
+/* =========================================================
+   CHOICES
+   ========================================================= */
+
+.choice-grid {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.choice-card {
+  position: relative;
+
+  cursor: pointer;
+}
+
+.choice-card input {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.choice-card span {
+  display: inline-flex;
+
+  min-height: 45px;
+
+  align-items: center;
+
+  padding: 0 16px;
+
+  border: 1px solid #cfdded;
+
+  border-radius: 11px;
+
+  color: #46617f;
+
+  background: #fafdff;
+
+  font-size: 14px;
+
+  font-weight: 650;
+
+  transition: 0.2s ease;
+}
+
+.choice-card input:checked + span {
+  border-color: #147de0;
+
+  color: #075cb6;
+
+  background: #eaf5ff;
+
+  box-shadow:
+    0 5px 15px rgba(20, 125, 224, 0.09);
+}
+
+
+/* =========================================================
+   PRIVACY NOTE
+   ========================================================= */
+
+.privacy-note {
+  grid-column: 1 / -1;
+
+  display: flex;
+
+  gap: 12px;
+
+  align-items: flex-start;
+
+  padding: 15px 17px;
+
+  border: 1px solid #d9e9f8;
+
+  border-radius: 13px;
+
+  background: #f4f9ff;
+}
+
+.privacy-icon {
+  flex: 0 0 auto;
+
+  width: 24px;
+  height: 24px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #08714a;
+
+  background: #d9f5e9;
+
+  font-size: 13px;
+
+  font-weight: 900;
+}
+
+.privacy-note p {
+  color: #60728b;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   WHATSAPP BUTTON
+   ========================================================= */
+
+.whatsapp-button {
+  grid-column: 1 / -1;
+
+  min-height: 56px;
+
+  border: 0;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #07884f,
+      #0aa965
+    );
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 13px 28px rgba(7, 136, 79, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.whatsapp-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 17px 34px rgba(7, 136, 79, 0.28);
+}
+
+.whatsapp-icon {
+  margin-right: 8px;
+}
+
+.form-note {
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  color: #7a8aa0;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   PROCESS
+   ========================================================= */
+
+.process-section {
+  padding: 35px 0 80px;
+}
+
+.process-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.process-card {
+  padding: 28px;
+
+  border: 1px solid #dce7f4;
+
+  border-radius: 20px;
+
+  background: white;
+
+  box-shadow:
+    0 12px 32px rgba(32, 75, 126, 0.07);
+}
+
+.step-number {
+  margin-bottom: 17px;
+
+  color: #0874d8;
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  letter-spacing: 0.1em;
+}
+
+.process-card h3 {
+  margin-bottom: 10px;
+
+  color: #102e58;
+
+  font-size: 19px;
+}
+
+.process-card p {
+  color: #697b93;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.note-section {
+  padding-bottom: 70px;
+}
+
+.note-card {
+  padding: 28px 30px;
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef7ff,
+      #f7fbff
+    );
+
+  border: 1px solid #d9e9f7;
+}
+
+.note-card h2 {
+  color: #103762;
+
+  font-size: 22px;
+
+  margin-bottom: 8px;
+}
+
+.note-card p {
+  color: #64758c;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   FINAL CTA
+   ========================================================= */
+
+.final-cta {
+  width: min(1080px, calc(100% - 36px));
+
+  margin: 0 auto 80px;
+
+  padding: 40px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  border-radius: 24px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071d49,
+      #075eae
+    );
+
+  box-shadow:
+    0 22px 50px rgba(7, 52, 108, 0.2);
+}
+
+.final-cta .section-label {
+  color: #86d3ff;
+}
+
+.final-cta h2 {
+  font-size: clamp(25px, 4vw, 37px);
+
+  line-height: 1.15;
+
+  margin-bottom: 9px;
+}
+
+.final-cta p {
+  max-width: 650px;
+
+  color: rgba(255, 255, 255, 0.77);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.site-footer {
+  padding: 38px 18px 20px;
+
+  color: #aabbd1;
+
+  background: #071a39;
+}
+
+.footer-inner {
+  width: min(1080px, 100%);
+
+  margin: auto;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.footer-inner strong {
+  color: white;
+
+  font-size: 16px;
+}
+
+.footer-inner p {
+  margin-top: 5px;
+
+  font-size: 13px;
+}
+
+.footer-links {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 18px;
+
+  align-items: flex-start;
+}
+
+.footer-links a {
+  color: #d7e4f4;
+
+  font-size: 13px;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.copyright {
+  width: min(1080px, 100%);
+
+  margin: 28px auto 0;
+
+  padding-top: 17px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+  #tutorForm {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group:nth-last-of-type(1),
+  .form-group:nth-last-of-type(2) {
+    grid-column: auto;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-cta {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+}
+
+
+@media (max-width: 560px) {
+
+  .header-inner {
+    min-height: 68px;
+  }
+
+  .brand-text small {
+    display: none;
+  }
+
+  .header-whatsapp {
+    padding: 9px 13px;
+
+    font-size: 12px;
+  }
+
+  .hero {
+    padding:
+      65px 18px
+      70px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+
+  .content-section {
+    padding-top: 58px;
+  }
+
+  .form-card {
+    padding: 20px 16px;
+  }
+
+  .final-cta {
+    padding: 28px 22px;
+  }
+
+}
