@@ -136,39 +136,33 @@ if (tutorForm) {
      * GA4 event
      */
 
-    if (typeof gtag === "function") {
-
-      gtag(
-        "event",
-        "tutor_whatsapp_enquiry",
-        {
-          event_category: "tutor",
-          event_label: "Tutor registration WhatsApp",
-          transport_type: "beacon"
-        }
-      );
-
-    }
-
+    if (typeof window.gtag === "function") {
+  window.gtag("event", "tutor_whatsapp_opened", {
+    form_type: "tutor",
+    transport_type: "beacon"
+  });
+                              }
 
     /*
      * Open WhatsApp
      */
 
     window.open(
-      whatsappUrl,
-      "_blank",
-      "noopener"
-    );
+  whatsappUrl,
+  "_blank",
+  "noopener,noreferrer"
+);
 
   });
 
 }
 
-     const copyrightYear =
+     /* ================= COPYRIGHT YEAR ================= */
+
+const copyrightYear =
   document.getElementById("copyrightYear");
 
 if (copyrightYear) {
   copyrightYear.textContent =
     new Date().getFullYear();
-         }
+}
