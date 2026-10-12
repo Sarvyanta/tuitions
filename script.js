@@ -708,7 +708,7 @@ inquiryForm?.addEventListener(
     */
 
     trackEvent(
-      "inquiry_submitted",
+  "inquiry_whatsapp_opened",
       {
 
         has_class:
@@ -818,16 +818,9 @@ document
               "";
 
 
-            trackEvent(
-              "faq_open",
-              {
-
-                question,
-
-                ...getTrafficParams()
-
-              }
-            );
+            trackEvent("faq_open", {
+  ...getTrafficParams()
+});
 
           }
 
@@ -978,3 +971,8 @@ trackEvent(
 
   }
 );
+const copyrightYear = document.getElementById("copyrightYear");
+
+if (copyrightYear) {
+  copyrightYear.textContent = new Date().getFullYear();
+}
