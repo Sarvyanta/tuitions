@@ -4,3 +4,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(menu&&links) menu.addEventListener("click",()=>links.classList.toggle("show"));
   document.querySelectorAll("[data-year]").forEach(e=>e.textContent=new Date().getFullYear());
 });
+const copyrightYear = document.getElementById("copyrightYear");
+
+if (copyrightYear) {
+  copyrightYear.textContent = new Date().getFullYear();
+}
